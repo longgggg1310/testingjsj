@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/result.css') }}">
+  </head>
+  <body>
+    <div class="container">
+      <div class="content">
+        <div class="logo">
+          <img src="https://fimagen.com/wp-content/uploads/2018/11/Bioactive-small-image3.jpg" height="58" width="184" alt="">
+        </div>
+        <img id="borderimg1" loading="lazy" src="{{ url_for('static', filename='smiles.png') }}" alt="Alps" decoding="async" style="background-repeat: no-repeat; background-position: center;">
+        <div class="text" onclick="location.href='/';">Go back to homepage</div>
+      </div>
+      <form id="form">
+        <div class="social">
+          <div class="title">Bioactive prediction</div>
+          <h4>Find information</h4>
+          <br>
+          <div class="btn">
+            <div class="btn-1">
+              <img src="static/spaces_-LEybeKogIn-6VllQQKY_avatar.webp" width="70">
+              <a href="https://pubchem.ncbi.nlm.nih.gov/#query={{ molecular }}">{{ molecular }}</a>
+            </div>
+            <div class="btn-2">
+              <img src="static/Wikipedia's_W.svg.png" width="70">
+              <a href="https://wikipedia.org/wiki/{{name_text}}">{{ name_text }}</a>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3>Smiles Formula: </h3>
+          <a id="div1" name="div1">{{ name }}</a>
+          <a href="javascript:copyText('div1');">Copy</a>
+        </div>
+    
+        <div>
+          <h3>Prediction: </h3>
+          <a id="example1">{{ name }} is {{prediction_text}} with DPP4</a>
+        </div>
+    
+        <div>
+          <h3>Name: </h3>
+          <a class="example">{{ name_text }}</a>
+        </div>
+      </form>
+    </div>
+    
+    <script>
+      function copyText(id) {
+        var elem = document.getElementById(id);
+        var range = document.createRange();
+        range.selectNode(elem);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        try {
+          document.execCommand('copy');
+          window.getSelection().removeAllRanges();
+          alert('Successfully copied smile formula: ' + elem.innerText);
+        } catch (err) {
+          alert('Unable to copy!');
+        }
+      }
+      
+        predict_text = document.getElementById('example1').textContent;
+
+        if (predict_text.includes('ACTIVE')) {
+          document.querySelector('.content').style.backgroundColor = '#00FF00';
+        }if (predict_text.includes("INACTIVE")) {
+          document.querySelector('.content').style.backgroundColor = '#FF0000';
+        }
+    </script>
+  </body>
+</html>
